@@ -8,10 +8,10 @@ const mockBoards: Board[] = [
 	{ id: '3', title: 'Board 3' },
 ]
 
-function Boards() {
+function BoardsPage() {
 	return (
 		<div>
-			<h1>Boards</h1>
+			<h1 className='text-2xl font-semibold mb-4'>Boards</h1>
 			<div className='flex items-center'>
 				<CreateBoard />
 				<BoardsList boards={mockBoards} />
@@ -20,4 +20,4 @@ function Boards() {
 	)
 }
 
-export default Boards
+export default BoardsPage
