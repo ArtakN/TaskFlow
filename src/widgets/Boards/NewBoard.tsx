@@ -1,7 +1,7 @@
 import { createBoardFeature } from '@features/craete-board/index.ts'
 import CreateBoardButton from '@shared/ui/CreateBoardButton.tsx'
 
-function CreateBoard() {
+function NewBoard() {
 	const handleClick = (): void => {
 		createBoardFeature()
 	}
@@ -13,4 +13,4 @@ function CreateBoard() {
 	)
 }
 
-export default CreateBoard
+export default NewBoard

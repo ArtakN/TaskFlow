@@ -1,4 +1,4 @@
-import App from '@/app/App'
+import { App } from '@app/index.tsx'
 import '@/app/styles/index.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'

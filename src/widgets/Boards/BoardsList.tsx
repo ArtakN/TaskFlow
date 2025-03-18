@@ -1,15 +1,13 @@
-import { Board } from '@/entities/boards/model/types'
-import { BoardCard } from '@/entities/boards/ui/BoardCard'
-import { openBoardFeature } from '@/features/open-board'
+import { Board } from '@/entities/board/model/types'
+import { BoardCard } from '@/entities/board/ui/BoardCard'
+import { useOpenBoard } from '@/features/open-board'
 
 interface BoardsListProps {
 	boards: Board[]
 }
 
 function BoardsList({ boards }: BoardsListProps) {
-	const handleClick = (id: string, title: string): void => {
-		openBoardFeature(id, title)
-	}
+	const openBoard = useOpenBoard()
 
 	return (
 		<div className='flex flex-wrap gap-4 ml-4'>
@@ -17,7 +15,7 @@ function BoardsList({ boards }: BoardsListProps) {
 				<BoardCard
 					key={board.id}
 					board={board}
-					onClick={() => handleClick(board.id, board.title)}
+					onClick={() => openBoard(board.id)}
 				/>
 			))}
 		</div>
