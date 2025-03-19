@@ -8,7 +8,7 @@ function AddTaskCardInput({ setCardInputText }: AddTaskCardInputProps) {
 	}
 
 	return (
-		<div className=' '>
+		<div className='mt-2'>
 			<input
 				type='text'
 				placeholder='Enter a title'

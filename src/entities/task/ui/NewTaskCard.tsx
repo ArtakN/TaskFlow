@@ -1,20 +1,22 @@
-import { saveTaskFeature } from '@/features/save-task'
 import AddTaskCardButton from '@/shared/ui/AddTaskCardButton'
 import AddTaskCardInput from '@/shared/ui/AddTaskCardInput'
 import CloseTaskCardButton from '@/shared/ui/CloseTaskCardButton'
 import SaveTaskCardButton from '@/shared/ui/SaveTaskCardButton'
 import { useState } from 'react'
 
-function NewTaskCard() {
+interface NewTaskCardProps {
+	onSave: (taskTitle: string) => void
+}
+
+function NewTaskCard({ onSave }: NewTaskCardProps) {
 	const [taskInputVisible, setTaskInputVisible] = useState(false)
 	const [cardInputText, setCardInputText] = useState('')
 
 	function saveCard() {
-		if (!cardInputText) {
-			setTaskInputVisible(false)
+		if (cardInputText) {
+			onSave(cardInputText)
 			setCardInputText('')
 		} else {
-			saveTaskFeature(cardInputText)
 			setTaskInputVisible(false)
 			setCardInputText('')
 		}
