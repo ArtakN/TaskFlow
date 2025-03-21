@@ -4,7 +4,7 @@ interface AddTaskButtonProps {
 	onClick: () => void
 }
 
-function AddTaskCardButton({ onClick }: AddTaskButtonProps) {
+export function AddTaskCardButton({ onClick }: AddTaskButtonProps) {
 	return (
 		<button
 			onClick={onClick}
@@ -15,5 +15,3 @@ function AddTaskCardButton({ onClick }: AddTaskButtonProps) {
 		</button>
 	)
 }
-
-export default AddTaskCardButton

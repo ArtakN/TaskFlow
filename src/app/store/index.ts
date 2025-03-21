@@ -4,6 +4,7 @@ import { create } from 'zustand'
 interface Board {
 	id: string
 	title: string
+	color: string
 }
 
 interface List {
@@ -23,7 +24,7 @@ interface AppState {
 	boards: Board[]
 	lists: List[]
 	tasks: Task[]
-	addBoard: (title: string) => void
+	addBoard: (title: string, color: string) => void
 	addList: (boardId: string, title: string) => void
 	addTask: (boardId: string, listId: string, title: string) => void
 }
@@ -31,9 +32,9 @@ interface AppState {
 // Инициализируем стор с моковыми данными
 export const useAppStore = create<AppState>(set => ({
 	boards: [
-		{ id: '1', title: 'Board 1' },
-		{ id: '2', title: 'Board 2' },
-		{ id: '3', title: 'Board 3' },
+		{ id: '1', title: 'Board 1', color: 'brown' },
+		{ id: '2', title: 'Board 2', color: 'green' },
+		{ id: '3', title: 'Board 3', color: 'blue' },
 	],
 	lists: [
 		{ id: '1', title: 'To Do', boardId: '1' },
@@ -46,10 +47,10 @@ export const useAppStore = create<AppState>(set => ({
 		{ id: '3', title: 'Task 3', listId: '1', boardId: '1' },
 	],
 
-	// Добавление новой доски
-	addBoard: (title: string) =>
+	// Add board
+	addBoard: (title: string, color: string) =>
 		set(state => ({
-			boards: [...state.boards, { id: Date.now().toString(), title }],
+			boards: [...state.boards, { id: Date.now().toString(), title, color }],
 		})),
 
 	// Добавление нового списка (колонки) в доску

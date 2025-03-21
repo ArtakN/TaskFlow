@@ -6,7 +6,7 @@ interface BoardsListProps {
 	boards: Board[]
 }
 
-function BoardsList({ boards }: BoardsListProps) {
+export function BoardsList({ boards }: BoardsListProps) {
 	const openBoard = useOpenBoard()
 
 	return (
@@ -21,14 +21,3 @@ function BoardsList({ boards }: BoardsListProps) {
 		</div>
 	)
 }
-
-export default BoardsList
-
-/**
- * В целом, этот код делает следующее:
- *
- * Получает массив объектов boards из boards page через props.
- * Перебирает этот массив с помощью map.
- * Для каждого объекта board создает компонент BoardCard и передает ему этот загаловок board и оббработчик собитии в качестве props.
- * Отображает все созданные компоненты BoardCard внутри <div>.
- */

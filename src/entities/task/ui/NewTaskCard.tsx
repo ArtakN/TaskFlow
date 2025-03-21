@@ -1,14 +1,14 @@
-import AddTaskCardButton from '@/shared/ui/AddTaskCardButton'
-import AddTaskCardInput from '@/shared/ui/AddTaskCardInput'
-import CloseTaskCardButton from '@/shared/ui/CloseTaskCardButton'
-import SaveTaskCardButton from '@/shared/ui/SaveTaskCardButton'
+import { AddTaskCardButton } from '@/shared/ui/AddTaskCardButton'
+import { CloseButton } from '@/shared/ui/CloseButton'
+import { SaveTaskCardButton } from '@/shared/ui/SaveTaskCardButton'
+import { TitleInput } from '@/shared/ui/TitleInput'
 import { useState } from 'react'
 
 interface NewTaskCardProps {
 	onSave: (taskTitle: string) => void
 }
 
-function NewTaskCard({ onSave }: NewTaskCardProps) {
+export function NewTaskCard({ onSave }: NewTaskCardProps) {
 	const [taskInputVisible, setTaskInputVisible] = useState(false)
 	const [cardInputText, setCardInputText] = useState('')
 
@@ -26,10 +26,10 @@ function NewTaskCard({ onSave }: NewTaskCardProps) {
 		<div>
 			{taskInputVisible && (
 				<div>
-					<AddTaskCardInput setCardInputText={setCardInputText} />
+					<TitleInput onChange={setCardInputText} />
 					<div className='flex items-center mt-2 gap-2'>
 						<SaveTaskCardButton onClick={() => saveCard()} />
-						<CloseTaskCardButton onClick={() => setTaskInputVisible(false)} />
+						<CloseButton onClick={() => setTaskInputVisible(false)} />
 					</div>
 				</div>
 			)}
@@ -39,5 +39,3 @@ function NewTaskCard({ onSave }: NewTaskCardProps) {
 		</div>
 	)
 }
-
-export default NewTaskCard

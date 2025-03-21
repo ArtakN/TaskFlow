@@ -1,13 +1,13 @@
 import { useAppStore } from '@/app/store'
 import { List } from '@/entities/list/model/types.ts'
-import NewTaskCard from '@/entities/task/ui/NewTaskCard'
-import TaskCard from '@/entities/task/ui/TaskCard'
+import { NewTaskCard } from '@/entities/task/ui/NewTaskCard'
+import { TaskCard } from '@/entities/task/ui/TaskCard'
 
 interface TasksListProps {
 	list: List
 }
 
-function TasksList({ list }: TasksListProps) {
+export function TasksList({ list }: TasksListProps) {
 	const tasks = useAppStore(state => state.tasks)
 	const filteredTasks = tasks.filter(
 		task => task.listId === list.id && task.boardId === list.boardId
@@ -33,5 +33,3 @@ function TasksList({ list }: TasksListProps) {
 		</div>
 	)
 }
-
-export default TasksList

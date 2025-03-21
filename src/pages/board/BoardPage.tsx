@@ -1,9 +1,9 @@
 import { useAppStore } from '@/app/store'
-import AddTaskListButton from '@/shared/ui/AddTaskListButton'
-import TasksList from '@/widgets/tasks/TasksList'
+import { AddTaskListButton } from '@/shared/ui/AddTaskListButton'
+import { TasksList } from '@/widgets/tasks/TasksList'
 import { useParams } from 'react-router-dom'
 
-function BoardPage() {
+export function BoardPage() {
 	const { id } = useParams<{ id?: string }>()
 	const boards = useAppStore(state => state.boards)
 	const lists = useAppStore(state => state.lists)
@@ -34,5 +34,3 @@ function BoardPage() {
 		</div>
 	)
 }
-
-export default BoardPage
