@@ -4,6 +4,8 @@ interface CreateBoardButtonProps {
 }
 
 export function CreateBoardButton({ title, onClick }: CreateBoardButtonProps) {
+	const isDisabled = !title?.trim()
+
 	return (
 		<button
 			onClick={onClick}
@@ -12,6 +14,7 @@ export function CreateBoardButton({ title, onClick }: CreateBoardButtonProps) {
 				color: title ? '#000' : undefined,
 			}}
 			className='bg-[#2C343C] w-full h-10 rounded-lg cursor-pointer text-[#546371] font-semibold'
+			disabled={isDisabled}
 		>
 			Create
 		</button>

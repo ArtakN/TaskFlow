@@ -1,8 +1,9 @@
 import { useAppStore } from '@/app/store'
+import { Color } from '@/features/create-board/model/types'
+import { BoardTitleInput } from '@/features/create-board/ui/BoardTitleInput'
 import { CloseButton } from '@/shared/ui/CloseButton'
-import { TitleInput } from '@/shared/ui/TitleInput'
 import { useState } from 'react'
-import { Color } from '../../../entities/board/model/types'
+import { ColorPicker } from './ColorPicker'
 import { CreateBoardButton } from './CreateBoardButton'
 
 interface CreateBoardPopupProps {
@@ -35,24 +36,15 @@ export function CreateBoardPopup({ colors, onClose }: CreateBoardPopupProps) {
 			</h2>
 			<div className='mb-4'>
 				<p className='mb-2 text-[#A3B0BE]'>Background</p>
-				<div className='flex flex-wrap justify-between  gap-2'>
-					{colors.map(color => (
-						<div
-							onClick={() => handleChooseColor(color.title)}
-							className='w-21 h-10 rounded-sm cursor-pointer'
-							key={color.id}
-							style={{
-								backgroundColor: color.title,
-								border:
-									boardBgColor === color.title ? '3px solid #fff' : undefined,
-							}}
-						></div>
-					))}
-				</div>
+				<ColorPicker
+					colors={colors}
+					selectedColor={boardBgColor}
+					onSelect={handleChooseColor}
+				/>
 			</div>
 			<div className='mb-2 text-[#A3B0BE]'>Board title</div>
 			<div className='mb-4'>
-				<TitleInput onChange={setBoardTitle} />
+				<BoardTitleInput onChange={setBoardTitle} boardTitle={boardTitle} />
 			</div>
 			<CreateBoardButton title={boardTitle} onClick={handleCreateBoard} />
 		</div>

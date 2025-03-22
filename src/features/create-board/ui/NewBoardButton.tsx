@@ -2,7 +2,7 @@ interface CreateBoardButtonProps {
 	onClick?: () => void
 }
 
-export function CreateBoardButton({ onClick }: CreateBoardButtonProps) {
+export function NewBoardButton({ onClick }: CreateBoardButtonProps) {
 	return (
 		<button
 			onClick={onClick}
