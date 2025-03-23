@@ -1,16 +1,12 @@
 import { useAppStore } from '@/app/store'
-import { AddTaskListButton } from '@/shared/ui/AddTaskListButton'
-import { TasksList } from '@/widgets/tasks/TasksList'
+import { AddTaskList } from '@/widgets/lists/AddTaskList'
+import { TasksList } from '@/widgets/lists/TasksList'
 import { useParams } from 'react-router-dom'
 
 export function BoardPage() {
 	const { id } = useParams<{ id?: string }>()
 	const boards = useAppStore(state => state.boards)
 	const lists = useAppStore(state => state.lists)
-
-	if (!id) {
-		return <div>Invalid board ID</div>
-	}
 
 	const board = boards.find(board => board.id === id)
 
@@ -29,7 +25,7 @@ export function BoardPage() {
 						<TasksList list={list} key={list.id} />
 					))}
 				</div>
-				<AddTaskListButton />
+				<AddTaskList boardId={board.id} />
 			</div>
 		</div>
 	)

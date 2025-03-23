@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 // @app/store/index.ts
 import { create } from 'zustand'
 
@@ -30,7 +31,7 @@ interface AppState {
 	lists: List[]
 	tasks: Task[]
 	colors: Colors[]
-	addBoard: (title: string, color: string) => void
+	addBoard: (id: string, title: string, color: string) => void
 	addList: (boardId: string, title: string) => void
 	addTask: (boardId: string, listId: string, title: string) => void
 }
@@ -38,17 +39,8 @@ interface AppState {
 // Инициализируем стор с моковыми данными
 export const useAppStore = create<AppState>(set => ({
 	boards: [],
-	lists: [
-		{ id: '1', title: 'To Do', boardId: '1' },
-		{ id: '2', title: 'In Progress', boardId: '1' },
-		{ id: '3', title: 'Done', boardId: '1' },
-	],
-	tasks: [
-		{ id: '1', title: 'Task 1', listId: '1', boardId: '1' },
-		{ id: '2', title: 'Task 2', listId: '1', boardId: '1' },
-		{ id: '3', title: 'Task 3', listId: '1', boardId: '1' },
-	],
-
+	lists: [],
+	tasks: [],
 	colors: [
 		{ id: '1', title: 'brown' },
 		{ id: '2', title: 'green' },
@@ -62,15 +54,15 @@ export const useAppStore = create<AppState>(set => ({
 	],
 
 	// Add board
-	addBoard: (title: string, color: string) =>
+	addBoard: (id: string, title: string, color: string) =>
 		set(state => ({
-			boards: [...state.boards, { id: Date.now().toString(), title, color }],
+			boards: [...state.boards, { id, title, color }],
 		})),
 
-	// Добавление нового списка (колонки) в доску
+	// Добавление нового списка в доску
 	addList: (boardId: string, title: string) =>
 		set(state => ({
-			lists: [...state.lists, { id: Date.now().toString(), title, boardId }],
+			lists: [...state.lists, { id: nanoid(8), title, boardId }],
 		})),
 
 	// Добавление новой задачи
@@ -79,7 +71,7 @@ export const useAppStore = create<AppState>(set => ({
 			tasks: [
 				...state.tasks,
 				{
-					id: Date.now().toString(),
+					id: nanoid(8),
 					title,
 					listId,
 					boardId,
