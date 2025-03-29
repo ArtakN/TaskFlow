@@ -15,6 +15,7 @@ export function NewTaskCard({ onSave }: NewTaskCardProps) {
 	function saveCard() {
 		if (cardInputText) {
 			onSave(cardInputText)
+			setTaskInputVisible(false)
 			setCardInputText('')
 		} else {
 			setTaskInputVisible(false)

@@ -1,58 +1,35 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# Task Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Task Flow** is a task management web application in the style of a Kanban board. This project is part of my portfolio, demonstrating my skills with modern front-end technologies, FSD architecture, and state management using Zustand.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Explore the live demo: [Task Flow Demo](https://task-flow-6c09a.web.app/)
 
-## Expanding the ESLint configuration
+## 💻 Portfolio
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Visit my portfolio website: [artaknavoyan.de](https://artaknavoyan.de)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React** – a library for building user interfaces
+- **TypeScript** – typed JavaScript for better code reliability
+- **Zustand** – lightweight state management
+- **Tailwind CSS** – utility-first CSS framework
+- **Firebase** – database and authentication
+- **FSD (Feature-Sliced Design)** – code organization methodology
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎯 Features
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-=======
-# TaskFlow
->>>>>>> 4f8128515d9f5de10ad6eaac26793da002b9331b
+- 📌 Create, edit, and delete boards, lists, and tasks
+- 🔄 Drag-and-drop tasks between lists
+- 💾 Data persistence with Firebase
+- 🎨 Intuitive UI built with Tailwind CSS
+
+## 📌 Contact
+
+If you have any questions or suggestions, feel free to reach out:
+
+- **Email**: [navoyan.ab@gmail.com](mailto:navoyan.ab@gmail.com)
+- **LinkedIn**: [linkedin.com/in/artak-navoyan](https://www.linkedin.com/in/artak-navoyan-7564a4149/)
+- **GitHub**: [github.com/ArtakN](https://github.com/ArtakN)

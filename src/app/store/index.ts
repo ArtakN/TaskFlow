@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-// @app/store/index.ts
 import { create } from 'zustand'
 
 interface Colors {
@@ -34,9 +33,10 @@ interface AppState {
 	addBoard: (id: string, title: string, color: string) => void
 	addList: (boardId: string, title: string) => void
 	addTask: (boardId: string, listId: string, title: string) => void
+	moveTask: (taskId: string, fromListId: string, toListId: string) => void
 }
 
-// Инициализируем стор с моковыми данными
+// Store initialization
 export const useAppStore = create<AppState>(set => ({
 	boards: [],
 	lists: [],
@@ -59,13 +59,13 @@ export const useAppStore = create<AppState>(set => ({
 			boards: [...state.boards, { id, title, color }],
 		})),
 
-	// Добавление нового списка в доску
+	// Add list
 	addList: (boardId: string, title: string) =>
 		set(state => ({
 			lists: [...state.lists, { id: nanoid(8), title, boardId }],
 		})),
 
-	// Добавление новой задачи
+	// Add task
 	addTask: (boardId: string, listId: string, title: string) =>
 		set(state => ({
 			tasks: [
@@ -77,5 +77,20 @@ export const useAppStore = create<AppState>(set => ({
 					boardId,
 				},
 			],
+		})),
+
+	// Move task from one list to another
+	moveTask: (taskId: string, fromListId: string, toListId: string) =>
+		set(state => ({
+			tasks: state.tasks.map(
+				task =>
+					// Find the task that matches the given taskId and is currently in fromListId
+					task.id === taskId && task.listId === fromListId
+						? {
+								...task, // Keep all other properties of the task unchanged
+								listId: toListId, // Update only the listId to move the task
+						  }
+						: task // If the task doesn't match, return it unchanged
+			),
 		})),
 }))
