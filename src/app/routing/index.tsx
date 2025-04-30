@@ -1,9 +1,9 @@
-import { AboutPage } from '@/pages/about/AboutPage'
-import { Header } from '@/widgets/header/Header'
-import { BoardPage } from '@pages/board/BoardPage'
-import { BoardsPage } from '@pages/board/BoardsPage'
-import { Login } from '@pages/login/Login'
-import { NotFoundPage } from '@pages/not-found/NotFoundPage'
+import { AboutPage } from '@/pages/about-page'
+import { BoardPage } from '@/pages/board-page'
+import { BoardsPage } from '@/pages/boards-page'
+import { LoginPage } from '@/pages/login-page'
+import { NotFoundPage } from '@/pages/not-found-page'
+import { Header } from '@/widgets/header'
 import { Route, Routes } from 'react-router-dom'
 
 export const AppRouter = () => {
@@ -17,7 +17,7 @@ export const AppRouter = () => {
 					<Route path='/board/:id' element={<BoardPage />} />
 					<Route path='*' element={<NotFoundPage />} />
 					<Route path='/about' element={<AboutPage />} />
-					<Route path='/login' element={<Login />} />
+					<Route path='/login' element={<LoginPage />} />
 				</Routes>
 			</div>
 		</>

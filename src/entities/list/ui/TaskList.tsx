@@ -1,10 +1,10 @@
 import { List } from '@/entities/list/model/types.tsx'
 
-interface TasksListProps {
+interface TaskListProps {
 	list: List
 }
 
-function TasksList({ list }: TasksListProps) {
+export function TaskList({ list }: TaskListProps) {
 	return (
 		<div>
 			<div className='bg-black p-2 w-2xs rounded-lg shadow-sm'>
@@ -13,5 +13,3 @@ function TasksList({ list }: TasksListProps) {
 		</div>
 	)
 }
-
-export default TasksList

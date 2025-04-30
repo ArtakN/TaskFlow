@@ -10,7 +10,7 @@ Explore the live demo: [Task Flow Demo](https://task-flow-6c09a.web.app/)
 
 Visit my portfolio website: [artaknavoyan.de](https://artaknavoyan.de)
 
-## 🚀 Tech Stack
+## 🛠️ Tech Stack
 
 - **React** – a library for building user interfaces
 - **TypeScript** – typed JavaScript for better code reliability
@@ -21,12 +21,12 @@ Visit my portfolio website: [artaknavoyan.de](https://artaknavoyan.de)
 
 ## 🎯 Features
 
-- 📌 Create, edit, and delete boards, lists, and tasks
-- 🔄 Drag-and-drop tasks between lists
-- 💾 Data persistence with Firebase
-- 🎨 Intuitive UI built with Tailwind CSS
+- Create, edit, and delete boards, lists, and tasks
+- Drag-and-drop tasks between lists
+- Data persistence with Firebase
+- Intuitive UI built with Tailwind CSS
 
-## 📌 Contact
+## 📬 Contact
 
 If you have any questions or suggestions, feel free to reach out:
 

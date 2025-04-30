@@ -1,7 +1,7 @@
 // @features/create-board/ui/CreateBoardPopup.tsx
+import { Color } from '@/entities/board'
 import { CloseButton } from '@/shared/ui/CloseButton'
 import { useState } from 'react'
-import { Color } from '../model/types'
 import { useCreateBoard } from '../model/useCreateBoard'
 import { BoardTitleInput } from './BoardTitleInput'
 import { ColorPicker } from './ColorPicker'

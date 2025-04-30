@@ -1,5 +1,4 @@
-import { Color } from '@/features/create-board/model/types'
-
+import { Color } from '@/entities/board'
 interface ColorPickerProps {
 	colors: Color[]
 	selectedColor: string

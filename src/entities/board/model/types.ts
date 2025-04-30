@@ -3,3 +3,8 @@ export interface Board {
 	title: string
 	color: string
 }
+
+export interface Color {
+	id: string
+	title: string
+}
