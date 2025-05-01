@@ -1,16 +1,15 @@
 interface DeleteBoardButtonProps {
-	boardId: string
-	onDelete: (id: string) => void
-	boardTitle: string
+	onDelete: () => void
 }
 
-export function DeleteBoardButton({
-	boardId,
-	onDelete,
-}: DeleteBoardButtonProps) {
+export function DeleteBoardButton({ onDelete }: DeleteBoardButtonProps) {
 	function handleClick() {
-		onDelete(boardId)
+		onDelete()
 	}
 
-	return <button onClick={handleClick}></button>
+	return (
+		<button onClick={handleClick} className='text-red-500 hover:text-red-700'>
+			Delete board
+		</button>
+	)
 }

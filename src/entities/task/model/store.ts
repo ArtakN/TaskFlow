@@ -8,6 +8,7 @@ interface TaskState {
 	moveTask: (taskId: string, fromListId: string, toListId: string) => void
 	editTask: (id: string, newTitle: string) => void
 	deleteTask: (id: string) => void
+	deleteTasksByBoardId: (boardId: string) => void
 }
 
 export const useTaskStore = create<TaskState>(set => ({
@@ -33,6 +34,10 @@ export const useTaskStore = create<TaskState>(set => ({
 	deleteTask: (id: string) =>
 		set(state => ({
 			tasks: state.tasks.filter(task => task.id !== id),
+		})),
+	deleteTasksByBoardId: (boardId: string) =>
+		set(state => ({
+			tasks: state.tasks.filter(task => task.boardId !== boardId),
 		})),
 }))
 

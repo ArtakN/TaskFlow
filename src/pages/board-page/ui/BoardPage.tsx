@@ -59,7 +59,7 @@ export function BoardPage() {
 
 			{boardOptionsMenuVisible && (
 				<div className='absolute right-4 border top-[100px]'>
-					<BoardOptionsMenu />
+					<BoardOptionsMenu boardId={board.id} boardTitle={board.title} />
 				</div>
 			)}
 
