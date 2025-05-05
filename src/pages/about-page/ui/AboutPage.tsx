@@ -1,130 +1,132 @@
 export function AboutPage() {
 	return (
-		<div className='container mx-auto p-4'>
-			<h1 className='text-3xl font-bold mb-4'>About Task Flow</h1>
+		<div className='container mx-auto p-4 max-w-4xl'>
+			<h1 className='text-3xl font-bold mb-6 text-center'>About Task Flow</h1>
 
-			<p className='mb-4'>
+			<p className='mb-4 text-lg leading-relaxed'>
 				<strong>Task Flow</strong> is a Kanban-style task management web
-				application that helps users organize and manage their tasks across
-				multiple boards. It is part of my portfolio, showcasing my experience
-				with modern web technologies. The application allows users to create
-				boards, add lists, and manage tasks with drag-and-drop functionality,
-				providing a simple and intuitive interface for efficient workflow
-				management.
+				application designed to help users organize and visualize their tasks
+				effectively across multiple boards. Built as a portfolio project, it
+				demonstrates proficiency in modern front-end technologies and
+				architectural patterns. The application features board creation, list
+				management within boards, card creation, and intuitive drag-and-drop
+				functionality for workflow management.
 			</p>
 
-			<p className='my-6 text-lg'>
+			<p className='my-8 text-lg text-center'>
 				Check out my full portfolio at{' '}
 				<a
 					href='https://artaknavoyan.de'
 					target='_blank'
 					rel='noopener noreferrer'
-					className='text-[#4D95FF] hover:underline'
+					className='text-[#4D95FF] hover:underline font-medium'
 				>
 					artaknavoyan.de
 				</a>
 			</p>
 
-			<h2 className='text-xl sm:text-2xl font-semibold mb-2'>
+			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
 				Technologies Used
 			</h2>
-			<ul className='list-disc pl-6 mb-4'>
+			<ul className='list-disc space-y-2 pl-6 mb-6'>
 				<li>
-					<strong>React</strong> – For building the dynamic, component-based
-					user interface.
+					<strong>React (v19) & TypeScript</strong>: For a robust, type-safe,
+					component-based UI.
 				</li>
 				<li>
-					<strong>TypeScript</strong> – Ensures type safety and better code
-					reliability.
+					<strong>Vite</strong>: Modern and fast build tooling.
 				</li>
 				<li>
-					<strong>Tailwind CSS</strong> – To create a modern and responsive
-					design.
+					<strong>Tailwind CSS (v4)</strong>: Utility-first CSS framework for
+					rapid and responsive UI development.
 				</li>
 				<li>
-					<strong>Firebase</strong> – For hosting and real-time data
-					synchronization.
-					<ul className=' pl-6'>
+					<strong>Zustand</strong>: Lightweight and scalable state management
+					with separation into entity-specific stores.
+				</li>
+				<li>
+					<strong>Feature-Sliced Design (FSD)</strong>: Architectural
+					methodology ensuring high modularity, scalability, and maintainability
+					through clear layer and slice boundaries (`app`, `pages`, `widgets`,
+					`features`, `entities`, `shared`) and Public Slice APIs (`index.ts`).
+				</li>
+				<li>
+					<strong>React Router</strong>: For client-side routing.
+				</li>
+				<li>
+					<strong>Lucide Icons</strong>: For clean and consistent icons.
+				</li>
+				<li>
+					<strong>Firebase (Current & Planned)</strong>:
+					<ul className='list-circle space-y-1 pl-6 mt-1'>
 						<li>
-							<strong>Hosting</strong>: Deploys and hosts the app with fast,
-							secure delivery.
+							<strong>Hosting</strong>: Current deployment platform.
 						</li>
 						<li>
-							<strong>Firestore</strong>: Enables real-time data synchronization
-							and persistent storage (coming soon).
+							<strong>Firestore</strong>: Planned for real-time database
+							persistence.
 						</li>
 						<li>
-							<strong>Authentication</strong>: For user login and registration
-							(coming soon).
+							<strong>Authentication</strong>: Planned for user management.
 						</li>
 					</ul>
 				</li>
-				<li>
-					<strong>Zustand</strong> – A simple state management library for
-					handling app state.
-				</li>
-				<li>
-					<strong>FSD (Feature-Sliced Design)</strong> – Organizes the project
-					architecture into clear and manageable slices for scalability and
-					maintainability.
-				</li>
 			</ul>
 
-			<h2 className='text-2xl font-semibold mb-2'>What’s Done (Sprint 1)</h2>
-			<ul className='list-disc pl-6 mb-4'>
-				<li>
-					Set up <strong>FSD architecture</strong> with the structure (@app,
-					@widgets, @features, @entities, @shared).
-				</li>
-				<li>
-					Created the <strong>Home page</strong> with a list of boards and
-					functionality to <strong>create new boards</strong>.
-				</li>
-				<li>
-					Implemented the <strong>Board page</strong> (/board/:id route) with
-					dynamic rendering and automatic creation of{' '}
-					<strong>3 default lists</strong>: To Do, In Progress, and Done.
-				</li>
-				<li>
-					Allowed users to <strong>add new lists</strong> within a board.
-				</li>
-				<li>
-					Enabled functionality to <strong>add cards</strong> to lists.
-				</li>
-				<li>
-					Implemented <strong>drag-and-drop</strong> functionality to move task
-					cards between lists.
-				</li>
-				<li>
-					Implemented <strong>Zustand</strong> state management for boards,
-					lists, and tasks.
-				</li>
-				<li>
-					Deployed the application using <strong>Firebase Hosting</strong>.
-				</li>
-			</ul>
-
-			<h2 className='text-2xl font-semibold mb-2'>
-				What’s Coming Next (Sprint 2)
+			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
+				Implemented Functionality
 			</h2>
-			<ul className='list-disc pl-6 mb-4'>
-				<li> Edit board name (input on click of the name)</li>
-				<li> Edit column names (change name + delete)</li>
+			<ul className='list-disc space-y-2 pl-6 mb-6'>
 				<li>
-					Edit card title and description (change name, description, delete)
+					FSD Architecture: Project structured according to Feature-Sliced
+					Design principles, including layer separation, slice Public APIs
+					(`index.ts`), and entity-based state management.
 				</li>
 				<li>
-					Implement saving data to <strong>localStorage</strong> to ensure data
-					persists on page reload
+					State Management: Zustand implemented with separate stores for
+					`Board`, `List`, and `Task` entities. Selectors optimized using
+					`useShallow`.
 				</li>
-				<li> Add tests to ensure stability</li>
+				<li>
+					Board Management: Create boards, view list of boards (Home Page).
+				</li>
+				<li>
+					Board Editing: Edit board titles inline (with auto-resizing textarea).
+				</li>
+				<li>
+					Board Deletion: Delete boards (includes confirmation and cascading
+					deletion of associated lists and tasks).
+				</li>
+				<li>
+					List Management: View lists on a board (Board Page), default lists
+					created automatically, add new lists.
+				</li>
+				<li>Task Management: Add new task cards to lists.</li>
+				<li>Drag & Drop: Move task cards between lists within a board.</li>
+				<li>Deployment: Application deployed via Firebase Hosting.</li>
+			</ul>
 
+			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
+				Planned Features (Next Steps)
+			</h2>
+			<ul className='list-disc space-y-2 pl-6 mb-4'>
+				<li>Edit list titles (inline editing).</li>
+				<li>Delete lists (with cascading task deletion).</li>
+				<li>Edit task details (title, description).</li>
+				<li>Delete tasks.</li>
+				<li>Implement `localStorage` persistence (as an interim step).</li>
 				<li>
-					Implement Firebase Authentication for user login and registration
+					Implement unit/integration tests (Vitest + React Testing Library).
 				</li>
+				<li>Implement Firebase Authentication.</li>
 				<li>
-					Integrate <strong>Firestore</strong> for real-time data storage and
-					syncing, ensuring persistent task and board data
+					Integrate Firestore for persistent, real-time data storage (replacing
+					localStorage).
+				</li>
+				<li>UI/UX Polish (loading states, error handling, further styling).</li>
+				<li>
+					Explore further optimizations (e.g., `reselect` if needed, shared UI
+					improvements).
 				</li>
 			</ul>
 		</div>

@@ -35,6 +35,7 @@ export function EditBoardTitle({
 			inputRef.current.style.width = `${width + 4}px`
 		}
 	}, [currentTitle])
+
 	return (
 		<>
 			<input
@@ -49,12 +50,17 @@ export function EditBoardTitle({
 				}}
 				onBlur={handleSave}
 				autoFocus
-				className='px-2 border h-8 rounded-sm'
+				className='px-2 text-2xl font-semibold border h-8 rounded-sm'
 			/>
 			<span
 				ref={spanRef}
 				className='invisible absolute whitespace-pre'
-				style={{ fontSize: '16px', paddingLeft: '8px', paddingRight: '8px' }}
+				style={{
+					paddingLeft: '8px',
+					paddingRight: '8px',
+					fontSize: '24px',
+					fontWeight: '600',
+				}}
 			>
 				{currentTitle || ' '}
 			</span>

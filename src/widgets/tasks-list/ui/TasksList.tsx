@@ -6,7 +6,9 @@ import {
 	useTaskStore,
 } from '@/entities/task'
 import { useCreateTask } from '@/features/create-task'
+import { EditListTitle, useUpdateListTitle } from '@/features/edit-list-title'
 import { useMoveTask } from '@/features/move-task'
+import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
 interface TasksListProps {
@@ -14,10 +16,18 @@ interface TasksListProps {
 }
 
 export function TasksList({ list }: TasksListProps) {
-	const filteredTasks = useTaskStore(useShallow(selectTaskByListId(list.id))) // Используйте ваше имя селектора
+	const [editTitleInputVisible, setEditTitleInputVisible] = useState(false)
+
+	const filteredTasks = useTaskStore(useShallow(selectTaskByListId(list.id)))
 
 	const { addTask } = useCreateTask()
 	const { moveTask } = useMoveTask()
+	const { updateListTitle } = useUpdateListTitle()
+
+	const handleEditTitle = (id: string, newTitle: string) => {
+		updateListTitle(id, newTitle)
+		setEditTitleInputVisible(false)
+	}
 
 	const handleSaveTask = (taskTitle: string) => {
 		addTask(list.boardId, list.id, taskTitle)
@@ -39,23 +49,42 @@ export function TasksList({ list }: TasksListProps) {
 		const fromListId = e.dataTransfer.getData('fromListId')
 
 		if (taskId && fromListId) {
-			handleMoveCard(taskId, fromListId, list.id) // Move to current list
+			handleMoveCard(taskId, fromListId, list.id)
 		}
 	}
 
 	return (
 		<div
-			className='bg-black p-2 w-2xs rounded-lg shadow-sm'
-			onDragOver={e => e.preventDefault()} // Allow dropping
-			onDrop={handleDrop} // Handle drop event
+			className='bg-black rounded-lg p-2 shadow-sm min-w-[250px] max-w-[250px] flex flex-col h-fit'
+			onDragOver={e => e.preventDefault()}
+			onDrop={handleDrop}
 		>
-			<div className='font-semibold p-2'>{list.title}</div>
-			<div className='flex flex-col gap-2'>
+			<div className='break-words'>
+				{editTitleInputVisible ? (
+					<EditListTitle
+						onSave={handleEditTitle}
+						initialTitle={list.title}
+						id={list.id}
+					/>
+				) : (
+					<div
+						onClick={() => setEditTitleInputVisible(true)}
+						className='font-semibold break-words cursor-pointer rounded'
+					>
+						{list.title}
+					</div>
+				)}
+			</div>
+
+			<div className='flex flex-col gap-2 overflow-y-auto max-h-[calc(100vh-200px)]'>
 				{filteredTasks.map(task => (
 					<TaskCard key={task.id} task={task} onMove={handleMoveCard} />
 				))}
 			</div>
-			<NewTaskCard onSave={handleSaveTask} />
+
+			<div className='mt-2'>
+				<NewTaskCard onSave={handleSaveTask} />
+			</div>
 		</div>
 	)
 }
