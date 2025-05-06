@@ -1,2 +1,2 @@
 export { useDeleteBoard } from './model/useDeleteBoard.ts'
-export { DeleteBoardButton } from './ui/DeleteBoardButton.tsx'
+export { DeleteBoardMenuItem } from './ui/DeleteBoardMenuItem.tsx'

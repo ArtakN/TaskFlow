@@ -7,15 +7,12 @@ import {
 import { AddTaskList } from '@/widgets/add-task-list'
 import { BoardOptionsMenu } from '@/widgets/board-options-menu'
 import { TasksList } from '@/widgets/tasks-list'
-import { Ellipsis } from 'lucide-react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 
 export function BoardPage() {
 	const [editTitleInputVisible, setEditTitleInputVisible] = useState(false)
-	const [boardOptionsMenuVisible, setBoardOptionsMenuVisible] = useState(false)
-
 	const { id } = useParams<{ id?: string }>()
 	const boards = useBoardStore(state => state.boards)
 	const boardLists = useListStore(useShallow(selectListsByBoardId(id || '')))
@@ -51,17 +48,8 @@ export function BoardPage() {
 						{board.title}
 					</h1>
 				)}
-				<Ellipsis
-					className='cursor-pointer'
-					onClick={() => setBoardOptionsMenuVisible(!boardOptionsMenuVisible)}
-				/>
+				<BoardOptionsMenu boardId={board.id} boardTitle={board.title} />
 			</div>
-
-			{boardOptionsMenuVisible && (
-				<div className='absolute right-4 border top-[100px]'>
-					<BoardOptionsMenu boardId={board.id} boardTitle={board.title} />
-				</div>
-			)}
 
 			<div className='flex items-start mt-14'>
 				<div className='flex gap-4'>

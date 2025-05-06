@@ -14,6 +14,7 @@ export function EditBoardTitle({
 	const [currentTitle, setCurrentTitle] = useState(initialTitle)
 	const spanRef = useRef<HTMLSpanElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
+	const isFirstRender = useRef(true)
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setCurrentTitle(event.target.value)
@@ -33,6 +34,11 @@ export function EditBoardTitle({
 		if (spanRef.current && inputRef.current) {
 			const width = spanRef.current.offsetWidth
 			inputRef.current.style.width = `${width + 4}px`
+			if (isFirstRender.current) {
+				inputRef.current.focus()
+				inputRef.current.select()
+				isFirstRender.current = false
+			}
 		}
 	}, [currentTitle])
 

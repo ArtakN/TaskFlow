@@ -8,6 +8,13 @@ import {
 import { useCreateTask } from '@/features/create-task'
 import { EditListTitle, useUpdateListTitle } from '@/features/edit-list-title'
 import { useMoveTask } from '@/features/move-task'
+import { DeleteListMenuItem } from '@features/delete-list'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from '@shared/ui/dropdown-menu'
+import { MoreHorizontal } from 'lucide-react'
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -55,11 +62,11 @@ export function TasksList({ list }: TasksListProps) {
 
 	return (
 		<div
-			className='bg-black rounded-lg p-2 shadow-sm min-w-[250px] max-w-[250px] flex flex-col h-fit'
+			className='bg-black rounded-lg p-2 shadow-sm min-w-[270px] max-w-[270px] flex flex-col h-fit'
 			onDragOver={e => e.preventDefault()}
 			onDrop={handleDrop}
 		>
-			<div className='break-words'>
+			<div className='break-words mb-2 p-2'>
 				{editTitleInputVisible ? (
 					<EditListTitle
 						onSave={handleEditTitle}
@@ -67,11 +74,23 @@ export function TasksList({ list }: TasksListProps) {
 						id={list.id}
 					/>
 				) : (
-					<div
-						onClick={() => setEditTitleInputVisible(true)}
-						className='font-semibold break-words cursor-pointer rounded'
-					>
-						{list.title}
+					<div className='flex items-center justify-between '>
+						<div
+							onClick={() => setEditTitleInputVisible(true)}
+							className='font-semibold break-words cursor-pointer rounded'
+						>
+							{list.title}
+						</div>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<button className='p-1 rounded hover:bg-white/10'>
+									<MoreHorizontal size={16} />
+								</button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DeleteListMenuItem listId={list.id} listTitle={list.title} />
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				)}
 			</div>

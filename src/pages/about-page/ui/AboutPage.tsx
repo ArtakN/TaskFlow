@@ -57,6 +57,11 @@ export function AboutPage() {
 					<strong>Lucide Icons</strong>: For clean and consistent icons.
 				</li>
 				<li>
+					{/* Добавлен Shadcn UI / Radix */}
+					<strong>Shadcn UI / Radix UI</strong>: For accessible, unstyled UI
+					primitives (like DropdownMenu).
+				</li>
+				<li>
 					<strong>Firebase (Current & Planned)</strong>:
 					<ul className='list-circle space-y-1 pl-6 mt-1'>
 						<li>
@@ -71,48 +76,66 @@ export function AboutPage() {
 						</li>
 					</ul>
 				</li>
+				<li>
+					**Other Tools**: ESLint, Prettier, NanoID, Reselect *(если
+					используете)*, clsx, tailwind-merge.
+				</li>
 			</ul>
 
+			{/* Обновлено */}
 			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
 				Implemented Functionality
 			</h2>
 			<ul className='list-disc space-y-2 pl-6 mb-6'>
 				<li>
-					FSD Architecture: Project structured according to Feature-Sliced
+					**FSD Architecture:** Project structured according to Feature-Sliced
 					Design principles, including layer separation, slice Public APIs
 					(`index.ts`), and entity-based state management.
 				</li>
 				<li>
-					State Management: Zustand implemented with separate stores for
+					**State Management:** Zustand implemented with separate stores for
 					`Board`, `List`, and `Task` entities. Selectors optimized using
-					`useShallow`.
+					`useShallow` (or potentially `reselect`).
 				</li>
 				<li>
-					Board Management: Create boards, view list of boards (Home Page).
+					**Board Management:** Create boards, view list of boards (Home Page).
 				</li>
 				<li>
-					Board Editing: Edit board titles inline (with auto-resizing textarea).
+					**Board Editing:** Edit board titles inline (with auto-resizing
+					textarea).
 				</li>
 				<li>
-					Board Deletion: Delete boards (includes confirmation and cascading
+					**Board Deletion:** Delete boards (includes confirmation and cascading
 					deletion of associated lists and tasks).
 				</li>
 				<li>
-					List Management: View lists on a board (Board Page), default lists
-					created automatically, add new lists.
+					**List Management:** View lists on a board (Board Page), default lists
+					created automatically, add new lists. Edit list titles inline (with
+					auto-resizing textarea).
 				</li>
-				<li>Task Management: Add new task cards to lists.</li>
-				<li>Drag & Drop: Move task cards between lists within a board.</li>
-				<li>Deployment: Application deployed via Firebase Hosting.</li>
+				<li>
+					{' '}
+					{/* <-- ДОБАВЛЕНО --> */}
+					**List Deletion:** Delete lists (includes confirmation and cascading
+					deletion of associated tasks).
+				</li>
+				<li>**Task Management:** Add new task cards to lists.</li>
+				<li>**Drag & Drop:** Move task cards between lists within a board.</li>
+				<li>
+					**UI Components:** Utilizes Shadcn UI / Radix UI primitives for
+					components like Dropdown Menus.
+				</li>
+				<li>**Deployment:** Application deployed via Firebase Hosting.</li>
 			</ul>
 
+			{/* Обновлено */}
 			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
 				Planned Features (Next Steps)
 			</h2>
 			<ul className='list-disc space-y-2 pl-6 mb-4'>
-				<li>Edit list titles (inline editing).</li>
-				<li>Delete lists (with cascading task deletion).</li>
-				<li>Edit task details (title, description).</li>
+				{/* Убрали Edit list titles */}
+				{/* Убрали Delete lists */}
+				<li>Edit task details (title, description).</li> {/* <-- Следующее */}
 				<li>Delete tasks.</li>
 				<li>Implement `localStorage` persistence (as an interim step).</li>
 				<li>
@@ -124,10 +147,7 @@ export function AboutPage() {
 					localStorage).
 				</li>
 				<li>UI/UX Polish (loading states, error handling, further styling).</li>
-				<li>
-					Explore further optimizations (e.g., `reselect` if needed, shared UI
-					improvements).
-				</li>
+				<li>Explore further optimizations (shared UI improvements).</li>
 			</ul>
 		</div>
 	)
