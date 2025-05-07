@@ -13,6 +13,7 @@ export function useCreateBoard() {
 		;['To Do', 'In Progress', 'Done'].forEach(listTitle =>
 			addList(boardId, listTitle)
 		)
+		return boardId
 	}
 
 	return { createBoard }
