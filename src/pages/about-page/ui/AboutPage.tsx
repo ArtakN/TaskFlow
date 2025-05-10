@@ -114,12 +114,13 @@ export function AboutPage() {
 					auto-resizing textarea).
 				</li>
 				<li>
-					{' '}
-					{/* <-- ДОБАВЛЕНО --> */}
 					**List Deletion:** Delete lists (includes confirmation and cascading
 					deletion of associated tasks).
 				</li>
-				<li>**Task Management:** Add new task cards to lists.</li>
+				<li>
+					**Task Management:** Add new task cards to lists, edit task text
+					(inline, using auto-resizing textarea), delete tasks.
+				</li>
 				<li>**Drag & Drop:** Move task cards between lists within a board.</li>
 				<li>
 					**UI Components:** Utilizes Shadcn UI / Radix UI primitives for
@@ -128,15 +129,10 @@ export function AboutPage() {
 				<li>**Deployment:** Application deployed via Firebase Hosting.</li>
 			</ul>
 
-			{/* Обновлено */}
 			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
 				Planned Features (Next Steps)
 			</h2>
 			<ul className='list-disc space-y-2 pl-6 mb-4'>
-				{/* Убрали Edit list titles */}
-				{/* Убрали Delete lists */}
-				<li>Edit task details (title, description).</li> {/* <-- Следующее */}
-				<li>Delete tasks.</li>
 				<li>Implement `localStorage` persistence (as an interim step).</li>
 				<li>
 					Implement unit/integration tests (Vitest + React Testing Library).

@@ -4,9 +4,9 @@ import { Task } from './types'
 
 interface TaskState {
 	tasks: Task[]
-	addTask: (boardId: string, listId: string, title: string) => void
+	addTask: (boardId: string, listId: string, text: string) => void
 	moveTask: (taskId: string, fromListId: string, toListId: string) => void
-	editTask: (id: string, newTitle: string) => void
+	editTask: (id: string, newText: string) => void
 	deleteTask: (id: string) => void
 	deleteTasksByBoardId: (boardId: string) => void
 	deleteTaskByListId: (listId: string) => void
@@ -14,9 +14,9 @@ interface TaskState {
 
 export const useTaskStore = create<TaskState>(set => ({
 	tasks: [],
-	addTask: (boardId: string, listId: string, title: string) =>
+	addTask: (boardId: string, listId: string, text: string) =>
 		set(state => ({
-			tasks: [...state.tasks, { id: nanoid(8), title, listId, boardId }],
+			tasks: [...state.tasks, { id: nanoid(8), text, listId, boardId }],
 		})),
 	moveTask: (taskId: string, fromListId: string, toListId: string) =>
 		set(state => ({
@@ -26,10 +26,10 @@ export const useTaskStore = create<TaskState>(set => ({
 					: task
 			),
 		})),
-	editTask: (id: string, newTitle: string) =>
+	editTask: (id: string, newText: string) =>
 		set(state => ({
 			tasks: state.tasks.map(task =>
-				task.id === id ? { ...task, title: newTitle } : task
+				task.id === id ? { ...task, text: newText } : task
 			),
 		})),
 	deleteTask: (id: string) =>

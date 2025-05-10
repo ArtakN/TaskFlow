@@ -1,20 +1,37 @@
+import { useEffect, useRef } from 'react'
 interface TitleInputProps {
 	onChange: (value: string) => void
 }
 
 export function TitleInput({ onChange }: TitleInputProps) {
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		onChange(event.target.value)
+		adjustTextareaHeight()
 	}
 
+	const adjustTextareaHeight = () => {
+		if (textareaRef.current) {
+			textareaRef.current.style.height = 'auto'
+			textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+		}
+	}
+
+	useEffect(() => {
+		adjustTextareaHeight()
+		if (textareaRef.current) {
+			textareaRef.current.focus()
+			textareaRef.current.select()
+		}
+	}, [])
+
 	return (
-		<div className='mt-2'>
-			<input
-				type='text'
-				placeholder='Enter a title'
-				className='w-full pl-3 border h-12 rounded-lg'
-				onChange={handleInputChange}
-			/>
-		</div>
+		<textarea
+			ref={textareaRef}
+			placeholder='Enter a text'
+			className='w-full px-3 border h-12 rounded-md mt-2 py-2'
+			onChange={handleInputChange}
+		></textarea>
 	)
 }

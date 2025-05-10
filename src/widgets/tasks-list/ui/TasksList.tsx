@@ -36,8 +36,8 @@ export function TasksList({ list }: TasksListProps) {
 		setEditTitleInputVisible(false)
 	}
 
-	const handleSaveTask = (taskTitle: string) => {
-		addTask(list.boardId, list.id, taskTitle)
+	const handleSaveTask = (taskText: string) => {
+		addTask(list.boardId, list.id, taskText)
 	}
 
 	const handleMoveCard = (
@@ -62,7 +62,7 @@ export function TasksList({ list }: TasksListProps) {
 
 	return (
 		<div
-			className='bg-black rounded-lg p-2 shadow-sm min-w-[270px] max-w-[270px] flex flex-col h-fit'
+			className='bg-black rounded-lg p-2 shadow-sm w-[270px] flex flex-col min-h-fit'
 			onDragOver={e => e.preventDefault()}
 			onDrop={handleDrop}
 		>
@@ -74,16 +74,18 @@ export function TasksList({ list }: TasksListProps) {
 						id={list.id}
 					/>
 				) : (
-					<div className='flex items-center justify-between '>
+					<div className='flex gap-3 items-start justify-between'>
 						<div
 							onClick={() => setEditTitleInputVisible(true)}
-							className='font-semibold break-words cursor-pointer rounded'
+							className='font-semibold break-all overflow-wrap-anywhere cursor-pointer rounded w-full'
 						>
-							{list.title}
+							<p className='whitespace-pre-wrap break-words w-full'>
+								{list.title}
+							</p>
 						</div>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<button className='p-1 rounded hover:bg-white/10'>
+								<button className='p-1 rounded hover:bg-white/10 flex-shrink-0'>
 									<MoreHorizontal size={16} />
 								</button>
 							</DropdownMenuTrigger>
@@ -95,7 +97,7 @@ export function TasksList({ list }: TasksListProps) {
 				)}
 			</div>
 
-			<div className='flex flex-col gap-2 overflow-y-auto max-h-[calc(100vh-200px)]'>
+			<div className='flex flex-col gap-2 overflow-y-auto'>
 				{filteredTasks.map(task => (
 					<TaskCard key={task.id} task={task} onMove={handleMoveCard} />
 				))}
