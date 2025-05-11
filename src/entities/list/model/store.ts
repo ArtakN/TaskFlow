@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { List } from './types'
 
 interface ListState {
@@ -10,27 +11,35 @@ interface ListState {
 	deleteListsByBoardId: (boardId: string) => void
 }
 
-export const useListStore = create<ListState>(set => ({
-	lists: [],
-	addList: (boardId: string, title: string) =>
-		set(state => ({
-			lists: [...state.lists, { id: nanoid(8), title, boardId }],
-		})),
-	deleteList: (id: string) =>
-		set(state => ({
-			lists: state.lists.filter(list => list.id !== id),
-		})),
-	updateListTitle: (id: string, newTitle: string) =>
-		set(state => ({
-			lists: state.lists.map(list =>
-				list.id === id ? { ...list, title: newTitle } : list
-			),
-		})),
-	deleteListsByBoardId: (boardId: string) =>
-		set(state => ({
-			lists: state.lists.filter(list => list.boardId !== boardId),
-		})),
-}))
+export const useListStore = create<ListState>()(
+	persist(
+		set => ({
+			lists: [],
+			addList: (boardId: string, title: string) =>
+				set(state => ({
+					lists: [...state.lists, { id: nanoid(8), title, boardId }],
+				})),
+			deleteList: (id: string) =>
+				set(state => ({
+					lists: state.lists.filter(list => list.id !== id),
+				})),
+			updateListTitle: (id: string, newTitle: string) =>
+				set(state => ({
+					lists: state.lists.map(list =>
+						list.id === id ? { ...list, title: newTitle } : list
+					),
+				})),
+			deleteListsByBoardId: (boardId: string) =>
+				set(state => ({
+					lists: state.lists.filter(list => list.boardId !== boardId),
+				})),
+		}),
+		{
+			name: 'taskflow-list-storage',
+			storage: createJSONStorage(() => localStorage),
+		}
+	)
+)
 
 export const selectListsByBoardId = (boardId: string) => (state: ListState) =>
 	state.lists.filter(list => list.boardId === boardId)

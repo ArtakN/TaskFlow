@@ -57,7 +57,6 @@ export function AboutPage() {
 					<strong>Lucide Icons</strong>: For clean and consistent icons.
 				</li>
 				<li>
-					{/* Добавлен Shadcn UI / Radix */}
 					<strong>Shadcn UI / Radix UI</strong>: For accessible, unstyled UI
 					primitives (like DropdownMenu).
 				</li>
@@ -77,12 +76,10 @@ export function AboutPage() {
 					</ul>
 				</li>
 				<li>
-					**Other Tools**: ESLint, Prettier, NanoID, Reselect *(если
-					используете)*, clsx, tailwind-merge.
+					**Other Tools**: ESLint, Prettier, NanoID, clsx, tailwind-merge.
 				</li>
 			</ul>
 
-			{/* Обновлено */}
 			<h2 className='text-2xl font-semibold mb-3 border-b pb-2'>
 				Implemented Functionality
 			</h2>
@@ -123,6 +120,11 @@ export function AboutPage() {
 				</li>
 				<li>**Drag & Drop:** Move task cards between lists within a board.</li>
 				<li>
+					**Local Persistence:** All boards, lists, and tasks are saved to
+					`localStorage` and restored on page reload using Zustand's `persist`
+					middleware.
+				</li>
+				<li>
 					**UI Components:** Utilizes Shadcn UI / Radix UI primitives for
 					components like Dropdown Menus.
 				</li>
@@ -133,7 +135,6 @@ export function AboutPage() {
 				Planned Features (Next Steps)
 			</h2>
 			<ul className='list-disc space-y-2 pl-6 mb-4'>
-				<li>Implement `localStorage` persistence (as an interim step).</li>
 				<li>
 					Implement unit/integration tests (Vitest + React Testing Library).
 				</li>
