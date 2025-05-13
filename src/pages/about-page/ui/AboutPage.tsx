@@ -125,6 +125,26 @@ export function AboutPage() {
 					middleware.
 				</li>
 				<li>
+					**User Authentication (Foundation & Registration):**
+					<ul className='list-circle space-y-1 pl-6 mt-1'>
+						<li>
+							Configured Firebase Authentication (Email/Password provider).
+						</li>
+						<li>
+							Established real-time auth state listener (`onAuthStateChanged`)
+							in the app.
+						</li>
+						<li>
+							Implemented `useAuthStore` for managing user session state
+							(`user`, `isLoading`).
+						</li>
+						<li>
+							Enabled new user registration functionality with email and
+							password.
+						</li>
+					</ul>
+				</li>
+				<li>
 					**UI Components:** Utilizes Shadcn UI / Radix UI primitives for
 					components like Dropdown Menus.
 				</li>
@@ -138,7 +158,10 @@ export function AboutPage() {
 				<li>
 					Implement unit/integration tests (Vitest + React Testing Library).
 				</li>
-				<li>Implement Firebase Authentication.</li>
+				<li>Implement User Login and Logout functionality.</li>
+				<li>
+					Integrate authentication state with UI elements and route protection.
+				</li>
 				<li>
 					Integrate Firestore for persistent, real-time data storage (replacing
 					localStorage).

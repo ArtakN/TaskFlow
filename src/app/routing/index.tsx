@@ -3,6 +3,7 @@ import { BoardPage } from '@/pages/board-page'
 import { BoardsPage } from '@/pages/boards-page'
 import { LoginPage } from '@/pages/login-page'
 import { NotFoundPage } from '@/pages/not-found-page'
+import { RegistrationPage } from '@/pages/registration-page'
 import { Header } from '@/widgets/header'
 import { Route, Routes } from 'react-router-dom'
 
@@ -18,6 +19,7 @@ export const AppRouter = () => {
 					<Route path='*' element={<NotFoundPage />} />
 					<Route path='/about' element={<AboutPage />} />
 					<Route path='/login' element={<LoginPage />} />
+					<Route path='/registration' element={<RegistrationPage />} />
 				</Routes>
 			</div>
 		</>

@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { Board, Color } from './types'
 
 interface BoardState {
-	boards: Board[] // Это свойство будет хранить массив всех объектов досок в приложении. Тип Board[] означает "массив объектов, соответствующих интерфейсу Board
+	boards: Board[]
 	colors: Color[]
 	addBoard: (id: string, title: string, color: string) => void
 	updateBoardTitle: (id: string, newTitle: string) => void

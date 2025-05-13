@@ -24,8 +24,13 @@ export function Header() {
 					</Link>
 				</nav>
 				<Link to='/login'>
-					<button className='bg-[#4D95FF] px-4 py-1 text-black rounded-sm hover:bg-[#91BDFF] cursor-pointer transition-all duration-200'>
+					<div className='hover:text-white cursor-pointer transition-all duration-200'>
 						Login
+					</div>
+				</Link>
+				<Link to='/registration'>
+					<button className='bg-[#4D95FF] px-4 py-1 text-black rounded-sm hover:bg-[#4d94ffd1] cursor-pointer transition-all duration-200'>
+						Join for free
 					</button>
 				</Link>
 			</div>
