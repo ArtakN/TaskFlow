@@ -1,7 +1,26 @@
+import { useAuthStore } from '@/entities/user'
+import { useLogout } from '@/features/logout-user'
 import { SquareCheckBig } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function Header() {
+	const user = useAuthStore(state => state.user)
+	const { logoutUser } = useLogout()
+	const navigate = useNavigate()
+
+	async function handleLogout() {
+		try {
+			const success = await logoutUser()
+			if (success) {
+				navigate('/')
+			} else {
+				console.warn('Logout was not fully successful according to hook.')
+			}
+		} catch (error) {
+			console.error('Error during logout process in Header:', error)
+		}
+	}
+
 	return (
 		<header className='h-12 flex justify-between items-center border-b-1 border-gray-600 px-4 text-[#9DADBE] fixed bg-[#1c2126] w-full z-10'>
 			<Link to='/'>
@@ -23,16 +42,27 @@ export function Header() {
 						</div>
 					</Link>
 				</nav>
-				<Link to='/login'>
-					<div className='hover:text-white cursor-pointer transition-all duration-200'>
-						Login
+				{!user ? (
+					<div className='flex items-center gap-6'>
+						<Link to='/login'>
+							<div className='hover:text-white cursor-pointer transition-all duration-200'>
+								Login
+							</div>
+						</Link>
+						<Link to='/registration'>
+							<button className='bg-[#4D95FF] px-4 py-1 text-black rounded-sm hover:bg-[#4d94ffd1] cursor-pointer transition-all duration-200'>
+								Join for free
+							</button>
+						</Link>
 					</div>
-				</Link>
-				<Link to='/registration'>
-					<button className='bg-[#4D95FF] px-4 py-1 text-black rounded-sm hover:bg-[#4d94ffd1] cursor-pointer transition-all duration-200'>
-						Join for free
-					</button>
-				</Link>
+				) : (
+					<div
+						className='hover:text-white cursor-pointer transition-all duration-200'
+						onClick={handleLogout}
+					>
+						Log out
+					</div>
+				)}
 			</div>
 		</header>
 	)

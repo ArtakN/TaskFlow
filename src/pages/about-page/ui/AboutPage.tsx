@@ -120,6 +120,10 @@ export function AboutPage() {
 				</li>
 				<li>**Drag & Drop:** Move task cards between lists within a board.</li>
 				<li>
+					**Performance Optimization:** Implemented route-based code splitting
+					using `React.lazy()` and `Suspense` for faster initial page loads.
+				</li>
+				<li>
 					**Local Persistence:** All boards, lists, and tasks are saved to
 					`localStorage` and restored on page reload using Zustand's `persist`
 					middleware.
@@ -165,6 +169,10 @@ export function AboutPage() {
 				<li>
 					Integrate Firestore for persistent, real-time data storage (replacing
 					localStorage).
+				</li>
+				<li>
+					Implement Skeleton Screens (e.g., using Shadcn UI `Skeleton`) for
+					enhanced loading states during navigation and data fetching.
 				</li>
 				<li>UI/UX Polish (loading states, error handling, further styling).</li>
 				<li>Explore further optimizations (shared UI improvements).</li>

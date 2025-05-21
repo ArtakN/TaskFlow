@@ -1,55 +1,99 @@
+import { db } from '@/app/firebase/config'
+import { useAuthStore } from '@/entities/user'
+import {
+	deleteDoc,
+	doc,
+	serverTimestamp,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { Board, Color } from './types'
+import type { Board, Color } from './types'
 
 interface BoardState {
 	boards: Board[]
 	colors: Color[]
-	addBoard: (id: string, title: string, color: string) => void
-	updateBoardTitle: (id: string, newTitle: string) => void
-	deleteBoard: (id: string) => void
+	isLoadingBoards: boolean
+	setBoards: (boards: Board[]) => void
+	setLoadingBoards: (isLoading: boolean) => void
+	addBoard: (id: string, title: string, color: string) => Promise<void>
+	updateBoardTitle: (id: string, newTitle: string) => Promise<void>
+	deleteBoard: (id: string) => Promise<void>
 }
 
-// Создаем сам стор (хранилища) - это хук
-export const useBoardStore = create<BoardState>()(
-	persist(
-		set => ({
-			boards: [], // началное состояние досок: изначално досок нет
-			colors: [
-				// начальное состояние - массив цветов
-				{ id: '1', title: 'brown' },
-				{ id: '2', title: 'green' },
-				{ id: '3', title: 'blue' },
-				{ id: '4', title: 'yellow' },
-				{ id: '5', title: 'purple' },
-				{ id: '6', title: 'orange' },
-				{ id: '7', title: 'pink' },
-				{ id: '8', title: 'gray' },
-				{ id: '10', title: 'teal' },
-			],
-			// Методы изменяют состояние через функцию set от Zustand
-			addBoard: (id: string, title: string, color: string) =>
-				set(state => ({
-					boards: [...state.boards, { id, title, color }],
-				})), // Zustand вызывает функцию set передавая в неё state (state - это текущее состояние хранилища: boards, colors и методы). Далее set получает новый обект (boards) и обновляет state с новым обектом.
+export const useBoardStore = create<BoardState>()(set => ({
+	boards: [],
+	colors: [
+		{ id: '1', title: 'brown' },
+		{ id: '2', title: 'green' },
+		{ id: '3', title: 'blue' },
+		{ id: '4', title: 'yellow' },
+		{ id: '5', title: 'purple' },
+		{ id: '6', title: 'orange' },
+		{ id: '7', title: 'pink' },
+		{ id: '8', title: 'gray' },
+		{ id: '10', title: 'teal' },
+	],
+	isLoadingBoards: true,
 
-			// экшен обновления заголовка
-			updateBoardTitle: (id: string, newTitle: string) =>
-				set(state => ({
-					boards: state.boards.map(board =>
-						board.id === id ? { ...board, title: newTitle } : board
-					),
-				})),
+	setBoards: boards => set({ boards }),
+	setLoadingBoards: isLoading => set({ isLoadingBoards: isLoading }),
 
-			// экшен удаления
-			deleteBoard: (id: string) =>
-				set(state => ({
-					boards: state.boards.filter(board => board.id !== id),
-				})),
-		}),
-		{
-			name: 'taskflow-board-storage',
-			storage: createJSONStorage(() => localStorage),
+	addBoard: async (id: string, title: string, color: string) => {
+		const currentUser = useAuthStore.getState().user
+		if (!currentUser?.uid) {
+			console.error('User is not authenticated. Cannot add board.')
+			return
 		}
-	)
-)
+		set({ isLoadingBoards: true })
+		try {
+			await setDoc(doc(db, 'boards', id), {
+				title,
+				color,
+				userId: currentUser.uid,
+				createdAt: serverTimestamp(),
+			})
+		} catch (error) {
+			console.error('Ошибка при добавлении доски в Firestore:', error)
+		} finally {
+			set({ isLoadingBoards: false })
+		}
+	},
+
+	updateBoardTitle: async (id: string, newTitle: string) => {
+		set({ isLoadingBoards: true })
+		try {
+			const boardRef = doc(db, 'boards', id)
+			await updateDoc(boardRef, {
+				title: newTitle,
+			})
+
+			set(state => ({
+				boards: state.boards.map(board =>
+					board.id === id ? { ...board, title: newTitle } : board
+				),
+			}))
+
+			console.log(
+				`Название доски ${id} обновлено на "${newTitle}" в Firestore.`
+			)
+		} catch (error) {
+			console.error(`Ошибка при обновлении названия доски ${id}:`, error)
+		} finally {
+			set({ isLoadingBoards: false })
+		}
+	},
+
+	deleteBoard: async (id: string) => {
+		set({ isLoadingBoards: true })
+		try {
+			const boardRef = doc(db, 'boards', id)
+			await deleteDoc(boardRef)
+			console.log(`Доска ${id} удалена из Firestore.`)
+		} catch (error) {
+			console.error(`Ошибка при удалении доски ${id}:`, error)
+		} finally {
+			set({ isLoadingBoards: false })
+		}
+	},
+}))
