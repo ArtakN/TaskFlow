@@ -20,7 +20,7 @@ export function RegisterForm() {
 		try {
 			const success = await registerUser(email, password)
 			if (success) {
-				navigate('/login')
+				navigate('/boards', { replace: true })
 			} else {
 				alert('Registration failed')
 			}

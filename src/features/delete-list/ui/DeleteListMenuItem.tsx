@@ -13,13 +13,16 @@ export function DeleteListMenuItem({
 }: DeleteListMenuItemProps) {
 	const { deleteList } = useDeleteList()
 
-	const handleDeleteClick = () => {
+	const handleDeleteClick = async () => {
 		if (
 			window.confirm(
 				`Delete list "${listTitle}"? All tasks within it will also be deleted!`
 			)
 		) {
-			deleteList(listId)
+			const success = await deleteList(listId)
+			if (!success) {
+				alert('Failed to delete list')
+			}
 		}
 	}
 

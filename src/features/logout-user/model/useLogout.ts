@@ -1,11 +1,14 @@
 import { auth } from '@/app/firebase/config'
+import { useAuthStore } from '@/entities/user'
 import { signOut } from 'firebase/auth'
 
 export function useLogout() {
+	const setUser = useAuthStore(state => state.setUser)
+
 	const logoutUser = async () => {
 		try {
 			await signOut(auth)
-			console.log('User signed out successfully.')
+			setUser(null)
 			return true
 		} catch (error) {
 			console.log('Logout failed:', error)

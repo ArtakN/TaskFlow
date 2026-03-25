@@ -1,6 +1,7 @@
 import { Header } from '@/widgets/header'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { GuestRoute } from './GuestRoute'
 import { ProtectedRoute } from './ProtectedRoute'
 
 const BoardsPage = lazy(() =>
@@ -65,8 +66,22 @@ export const AppRouter = () => {
 						/>
 						<Route path='*' element={<NotFoundPage />} />
 						<Route path='/about' element={<AboutPage />} />
-						<Route path='/login' element={<LoginPage />} />
-						<Route path='/registration' element={<RegistrationPage />} />
+						<Route
+							path='/login'
+							element={
+								<GuestRoute>
+									<LoginPage />
+								</GuestRoute>
+							}
+						/>
+						<Route
+							path='/registration'
+							element={
+								<GuestRoute>
+									<RegistrationPage />
+								</GuestRoute>
+							}
+						/>
 					</Routes>
 				</Suspense>
 			</div>

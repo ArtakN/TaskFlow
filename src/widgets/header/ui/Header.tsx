@@ -12,7 +12,7 @@ export function Header() {
 		try {
 			const success = await logoutUser()
 			if (success) {
-				navigate('/')
+				navigate('/login', { replace: true })
 			} else {
 				console.warn('Logout was not fully successful according to hook.')
 			}

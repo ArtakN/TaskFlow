@@ -1,5 +1,5 @@
 import { create } from 'zustand'
 
-interface AppState {}
+type AppState = Record<string, never>
 
 export const useAppStore = create<AppState>(() => ({}))

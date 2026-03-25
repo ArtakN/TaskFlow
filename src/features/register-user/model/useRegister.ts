@@ -1,7 +1,10 @@
 import { auth } from '@app/firebase/config'
+import { useAuthStore } from '@/entities/user'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 export function useRegister() {
+	const setUser = useAuthStore(state => state.setUser)
+
 	const registerUser = async (
 		email: string,
 		password: string
@@ -12,7 +15,11 @@ export function useRegister() {
 				email,
 				password
 			)
-			console.log('User registered successfully:', userCredential.user)
+
+			setUser({
+				uid: userCredential.user.uid,
+				email: userCredential.user.email,
+			})
 
 			return true
 		} catch (error) {

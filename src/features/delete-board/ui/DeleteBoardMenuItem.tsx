@@ -15,14 +15,18 @@ export function DeleteBoardMenuItem({
 	const { deleteBoard } = useDeleteBoard()
 	const navigate = useNavigate()
 
-	const handleDeleteClick = () => {
+	const handleDeleteClick = async () => {
 		if (
 			window.confirm(
 				`Delete board "${boardTitle}"? This will also delete all its lists and tasks!`
 			)
 		) {
-			deleteBoard(boardId)
-			navigate('/')
+			const success = await deleteBoard(boardId)
+			if (success) {
+				navigate('/boards', { replace: true })
+			} else {
+				alert('Failed to delete board')
+			}
 		}
 	}
 

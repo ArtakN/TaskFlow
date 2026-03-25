@@ -20,7 +20,7 @@ export function LoginForm() {
 		try {
 			const success = await loginUser(email, password)
 			if (success) {
-				navigate('/')
+				navigate('/boards', { replace: true })
 			} else {
 				alert('Login failed')
 			}
