@@ -15,6 +15,8 @@ interface CreateBoardPopupProps {
 export function CreateBoardPopup({ colors, onClose }: CreateBoardPopupProps) {
 	const [boardTitle, setBoardTitle] = useState('')
 	const [boardBgColor, setBoardBgColor] = useState('')
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const { createBoard } = useCreateBoard()
 	const navigate = useNavigate()
@@ -24,9 +26,23 @@ export function CreateBoardPopup({ colors, onClose }: CreateBoardPopupProps) {
 	}
 
 	const handleCreateBoard = async () => {
-		const boardId = await createBoard(boardTitle, boardBgColor)
-		onClose()
-		navigate(`/board/${boardId}`)
+		if (isSubmitting) {
+			return
+		}
+
+		setIsSubmitting(true)
+		setErrorMessage('')
+
+		try {
+			const boardId = await createBoard(boardTitle.trim(), boardBgColor)
+			onClose()
+			navigate(`/board/${boardId}`)
+		} catch (error) {
+			console.error('Error creating board:', error)
+			setErrorMessage('Unable to create board. Please try again.')
+		} finally {
+			setIsSubmitting(false)
+		}
 	}
 
 	return (
@@ -53,7 +69,15 @@ export function CreateBoardPopup({ colors, onClose }: CreateBoardPopupProps) {
 				<BoardTitleInput onChange={setBoardTitle} boardTitle={boardTitle} />
 			</div>
 
-			<CreateBoardButton title={boardTitle} onClick={handleCreateBoard} />
+			{errorMessage && (
+				<p className='mb-4 text-sm text-red-400'>{errorMessage}</p>
+			)}
+
+			<CreateBoardButton
+				title={boardTitle}
+				onClick={handleCreateBoard}
+				isLoading={isSubmitting}
+			/>
 		</div>
 	)
 }

@@ -1,10 +1,15 @@
 interface CreateBoardButtonProps {
 	onClick: () => void
 	title?: string
+	isLoading?: boolean
 }
 
-export function CreateBoardButton({ title, onClick }: CreateBoardButtonProps) {
-	const isDisabled = !title?.trim()
+export function CreateBoardButton({
+	title,
+	onClick,
+	isLoading = false,
+}: CreateBoardButtonProps) {
+	const isDisabled = isLoading || !title?.trim()
 
 	return (
 		<button
@@ -13,10 +18,10 @@ export function CreateBoardButton({ title, onClick }: CreateBoardButtonProps) {
 				backgroundColor: title ? '#4D95FF' : undefined,
 				color: title ? '#000' : undefined,
 			}}
-			className='bg-[#2C343C] w-full h-10 rounded-lg cursor-pointer text-[#546371] font-semibold'
+			className='bg-[#2C343C] w-full h-10 rounded-lg cursor-pointer text-[#546371] font-semibold disabled:cursor-not-allowed disabled:opacity-70'
 			disabled={isDisabled}
 		>
-			Create
+			{isLoading ? 'Creating...' : 'Create'}
 		</button>
 	)
 }
