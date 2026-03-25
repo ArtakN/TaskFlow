@@ -15,6 +15,11 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 } from '@shared/ui/dropdown-menu'
+import {
+	TASK_DRAG_END_EVENT,
+	TASK_DRAG_START_EVENT,
+	type TaskDragDetail,
+} from '@/shared/lib/task-drag'
 import { cn } from '@/shared/lib/utils'
 import { MoreHorizontal } from 'lucide-react'
 
@@ -34,6 +39,9 @@ interface TasksListProps {
 export function TasksList({ list }: TasksListProps) {
 	const [editTitleInputVisible, setEditTitleInputVisible] = useState(false)
 	const [isDropTarget, setIsDropTarget] = useState(false)
+	const [activeDragFromListId, setActiveDragFromListId] = useState<string | null>(
+		null
+	)
 	const dragDepthRef = useRef(0)
 
 	const { allTasks, setTasks } = useTaskStore(
@@ -51,6 +59,29 @@ export function TasksList({ list }: TasksListProps) {
 	const { moveTask } = useMoveTask()
 	const { updateListTitle } = useUpdateListTitle()
 	const currentUser = useAuthStore(state => state.user)
+
+	useEffect(() => {
+		const handleTaskDragStart = (event: Event) => {
+			const { detail } = event as CustomEvent<TaskDragDetail>
+			setActiveDragFromListId(detail.fromListId)
+			setIsDropTarget(false)
+			dragDepthRef.current = 0
+		}
+
+		const handleTaskDragEnd = () => {
+			setActiveDragFromListId(null)
+			setIsDropTarget(false)
+			dragDepthRef.current = 0
+		}
+
+		window.addEventListener(TASK_DRAG_START_EVENT, handleTaskDragStart)
+		window.addEventListener(TASK_DRAG_END_EVENT, handleTaskDragEnd)
+
+		return () => {
+			window.removeEventListener(TASK_DRAG_START_EVENT, handleTaskDragStart)
+			window.removeEventListener(TASK_DRAG_END_EVENT, handleTaskDragEnd)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (!list.id || !currentUser?.uid) {
@@ -108,11 +139,8 @@ export function TasksList({ list }: TasksListProps) {
 		}
 	}
 
-	const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-		const taskId = e.dataTransfer.getData('taskId')
-		const fromListId = e.dataTransfer.getData('fromListId')
-
-		if (!taskId || fromListId === list.id) {
+	const handleDragEnter = () => {
+		if (!activeDragFromListId || activeDragFromListId === list.id) {
 			return
 		}
 
@@ -138,6 +166,7 @@ export function TasksList({ list }: TasksListProps) {
 
 		dragDepthRef.current = 0
 		setIsDropTarget(false)
+		setActiveDragFromListId(null)
 
 		if (taskId && fromListId) {
 			handleMoveCard(taskId, fromListId, list.id)
@@ -153,7 +182,12 @@ export function TasksList({ list }: TasksListProps) {
 			)}
 			onDragEnter={handleDragEnter}
 			onDragLeave={handleDragLeave}
-			onDragOver={e => e.preventDefault()}
+			onDragOver={e => {
+				e.preventDefault()
+				if (activeDragFromListId && activeDragFromListId !== list.id) {
+					setIsDropTarget(true)
+				}
+			}}
 			onDrop={handleDrop}
 		>
 			<div className='break-words mb-2 p-2'>
