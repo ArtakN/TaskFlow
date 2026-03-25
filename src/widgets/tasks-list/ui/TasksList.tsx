@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react' // Added useMemo
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 
 import { List } from '@/entities/list'
@@ -15,6 +15,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 } from '@shared/ui/dropdown-menu'
+import { cn } from '@/shared/lib/utils'
 import { MoreHorizontal } from 'lucide-react'
 
 import { db } from '@/app/firebase/config'
@@ -32,25 +33,19 @@ interface TasksListProps {
 
 export function TasksList({ list }: TasksListProps) {
 	const [editTitleInputVisible, setEditTitleInputVisible] = useState(false)
+	const [isDropTarget, setIsDropTarget] = useState(false)
+	const dragDepthRef = useRef(0)
 
-	// Select the raw tasks array and the setTasks action.
-	// setTasks from Zustand store is stable.
-	// allTasks will change reference when the store's tasks array is updated.
 	const { allTasks, setTasks } = useTaskStore(
 		useShallow(state => ({
 			allTasks: state.tasks,
 			setTasks: state.setTasks,
-			// isLoadingTasks: state.isLoadingTasks, // If needed for a global loading state
 		}))
 	)
 
-	// Compute filteredTasks using useMemo.
-	// This will only re-calculate if allTasks or list.id changes.
 	const filteredTasks = useMemo(() => {
 		return allTasks.filter(task => task.listId === list.id)
 	}, [allTasks, list.id])
-
-	// const isLoadingTasks = useTaskStore(state => state.isLoadingTasks); // If using a global loading indicator
 
 	const { addTask } = useCreateTask()
 	const { moveTask } = useMoveTask()
@@ -88,7 +83,7 @@ export function TasksList({ list }: TasksListProps) {
 		return () => {
 			unsubscribe()
 		}
-	}, [list.id, currentUser?.uid, setTasks]) // setTasks is stable
+	}, [list.id, currentUser?.uid, setTasks])
 
 	const handleEditTitle = (id: string, newTitle: string) => {
 		if (newTitle.trim() && newTitle !== list.title) {
@@ -113,10 +108,36 @@ export function TasksList({ list }: TasksListProps) {
 		}
 	}
 
-	const handleDrop = (e: React.DragEvent) => {
+	const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+		const taskId = e.dataTransfer.getData('taskId')
+		const fromListId = e.dataTransfer.getData('fromListId')
+
+		if (!taskId || fromListId === list.id) {
+			return
+		}
+
+		dragDepthRef.current += 1
+		setIsDropTarget(true)
+	}
+
+	const handleDragLeave = () => {
+		if (dragDepthRef.current === 0) {
+			return
+		}
+
+		dragDepthRef.current -= 1
+		if (dragDepthRef.current === 0) {
+			setIsDropTarget(false)
+		}
+	}
+
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault()
 		const taskId = e.dataTransfer.getData('taskId')
 		const fromListId = e.dataTransfer.getData('fromListId')
+
+		dragDepthRef.current = 0
+		setIsDropTarget(false)
 
 		if (taskId && fromListId) {
 			handleMoveCard(taskId, fromListId, list.id)
@@ -125,7 +146,13 @@ export function TasksList({ list }: TasksListProps) {
 
 	return (
 		<div
-			className='bg-black rounded-lg p-2 shadow-sm w-[270px] flex flex-col min-h-fit'
+			className={cn(
+				'bg-black rounded-lg p-2 shadow-sm w-[270px] flex flex-col min-h-fit border border-transparent transition-all duration-150',
+				isDropTarget &&
+					'border-[#4D95FF] bg-[#101820] shadow-[0_0_0_1px_rgba(77,149,255,0.25)]'
+			)}
+			onDragEnter={handleDragEnter}
+			onDragLeave={handleDragLeave}
 			onDragOver={e => e.preventDefault()}
 			onDrop={handleDrop}
 		>
