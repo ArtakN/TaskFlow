@@ -6,12 +6,14 @@ export function useCreateBoard() {
 	const addBoard = useBoardStore(state => state.addBoard)
 	const addList = useListStore(state => state.addList)
 
-	const createBoard = (title: string, bgColor: string) => {
+	const createBoard = async (title: string, bgColor: string) => {
 		const boardId = nanoid(8)
 
-		addBoard(boardId, title, bgColor)
-		;['To Do', 'In Progress', 'Done'].forEach(listTitle =>
-			addList(boardId, listTitle)
+		await addBoard(boardId, title, bgColor)
+		await Promise.all(
+			['To Do', 'In Progress', 'Done'].map(listTitle =>
+				addList(boardId, listTitle)
+			)
 		)
 		return boardId
 	}

@@ -23,8 +23,8 @@ export function CreateBoardPopup({ colors, onClose }: CreateBoardPopupProps) {
 		setBoardBgColor(color)
 	}
 
-	const handleCreateBoard = () => {
-		const boardId = createBoard(boardTitle, boardBgColor)
+	const handleCreateBoard = async () => {
+		const boardId = await createBoard(boardTitle, boardBgColor)
 		onClose()
 		navigate(`/board/${boardId}`)
 	}
